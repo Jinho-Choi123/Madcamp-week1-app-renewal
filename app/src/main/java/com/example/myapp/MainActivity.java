@@ -40,12 +40,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        Fragment firstfg;
-//        firstfg = new First_fragment();
-//        FragmentManager firstfm = getSupportFragmentManager();
-//        FragmentTransaction firstft = firstfm.beginTransaction();
-//        firstft.add(R.id.fragment, firstfg);
-//        firstft.commit();
     }
 
     private void loadFragment(Fragment fragment) {
