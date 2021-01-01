@@ -17,7 +17,7 @@ public class First_fragment extends Fragment {
     }
 
 
-    public static First_fragment newInstance(String param1, String param2) {
+    public static First_fragment newInstance() {
         First_fragment fragment = new First_fragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -33,9 +33,11 @@ public class First_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View view = inflater.inflate(R.layout.fragment_first_fragment, null);
+
         ArrayList<Contact> contacts = Contact.read(getContext());
 
-        ListView listview = (ListView) getView().findViewById(R.id.local_contact_list);
+        ListView listview = (ListView) view.findViewById(R.id.local_contact_list);
         Contact.ContactAdapter adapter = new Contact.ContactAdapter();
 
         listview.setAdapter(adapter);
@@ -48,7 +50,7 @@ public class First_fragment extends Fragment {
         }
         adapter.notifyDataSetChanged();
 
-        return inflater.inflate(R.layout.fragment_first_fragment, container, false);
+        return view;
     }
 }
 
