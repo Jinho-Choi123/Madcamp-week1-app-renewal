@@ -1,14 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Second_fragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Second_fragment"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:id="@+id/scroll2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_weight="0"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <ListView
+            android:id="@+id/db_contact_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+
+    </ScrollView>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/download_bottom_navbar"
+        android:layout_gravity="bottom"
+        app:menu="@menu/bottom_navbar_refresh"
+        />
+
 
 </FrameLayout>

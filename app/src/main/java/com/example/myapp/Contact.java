@@ -14,20 +14,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class Contact {
-    Long id;
+    String id;
     String phoneNumber;
     String name;
 
-    public void Contact(Long id, String phoneNumber, String name) {
+    public void Contact(String id, String phoneNumber, String name) {
         this.id = id;
         this.phoneNumber = phoneNumber;
         this.name = name;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
     public String getPhoneNumber() {
@@ -91,7 +91,7 @@ public class Contact {
             return contact_list.get(position);
         }
 
-        public void addItem(String phonenumber, String name, Long id) {
+        public void addItem(String phonenumber, String name, String id) {
             Contact item = new Contact();
 
             item.setId(id);
@@ -141,7 +141,7 @@ public class Contact {
                     }
 
                     Contact contact = new Contact();
-                    contact.setId(contactCursor.getLong(0));
+                    contact.setId(contactCursor.getString(0));
                     contact.setPhoneNumber(phonenumber);
                     contact.setName(contactCursor.getString(2));
                     contactlist.add(contact);

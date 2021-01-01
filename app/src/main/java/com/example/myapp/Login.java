@@ -5,6 +5,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -152,10 +153,15 @@ public class Login extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
 
+
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             String email = account.getEmail();
-
+            String googleUserId = account.getId();
+            SharedPreferences sf = getSharedPreferences("googleAccount", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sf.edit();
+            editor.putString("userId", googleUserId);
+            editor.apply();
             // Signed in successfully, show authenticated UI.
             Intent intent = new Intent(Login.this, MainActivity.class);
 
@@ -164,6 +170,7 @@ public class Login extends AppCompatActivity {
             startActivity(intent);
             //update UI(account);
         } catch (ApiException e) {
+
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Error", "signInResult:failed code=" + e.getStatusCode());

@@ -1,10 +1,14 @@
 package com.example.myapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -19,16 +23,17 @@ import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Logger.log("22222222222222", "33333333333333333");
-        setContentView(R.layout.activity_main);
-        Logger.log("22222222222222", "4444444444444444444444444444");
 
+        setContentView(R.layout.activity_main);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(new Scope(Scopes.DRIVE_FULL))
@@ -37,9 +42,33 @@ public class MainActivity extends AppCompatActivity {
         GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
 
+        String googleUserId = acct.getId();
+        Context context = this;
+        BottomNavigationView bottomNavigationView = findViewById(R.id.upload_bottom_navbar);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                SharedPreferences sf = getSharedPreferences("googleAccount", MODE_PRIVATE);
+                String userId = sf.getString("userId", "");
+                DB db = new DB(userId);
+
+                switch (item.getItemId()) {
+                    case R.id.upload_btn:
+                        Logger.log("hellooooooooooooooooooooooooooo", "ooooooooooooooooo");
+                        ArrayList<Contact> contacts = Contact.read(context);
+                        db.post(contacts);
+                        break;
+                    case R.id.refresh_btn:
+                        loadFragment(new Second_fragment());
+                        break;
+                }
+
+                return true;
+            }
+        });
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
     }
 
     private void loadFragment(Fragment fragment) {
@@ -58,10 +87,17 @@ public class MainActivity extends AppCompatActivity {
 
 
     //signout when LOGOUT btn is clicked
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        SharedPreferences sf = getSharedPreferences("googleAccount", MODE_PRIVATE);
+        String userId = sf.getString("userId", "");
+        DB db = new DB(userId);
         switch (item.getItemId()) {
             case R.id.LOGOUT:
+                SharedPreferences.Editor editor = sf.edit();
+                editor.putString("userId", "0");
+                editor.apply();
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                         .requestEmail()
                         .build();
@@ -73,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
                                 finish();
                             }
                         });
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

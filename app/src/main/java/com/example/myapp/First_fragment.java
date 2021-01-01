@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class First_fragment extends Fragment {
 
+    Bundle bundle ;
     public First_fragment() {
         // Required empty public constructor
     }
@@ -32,8 +33,8 @@ public class First_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_first_fragment, container, false);
 
+        View view = inflater.inflate(R.layout.fragment_first_fragment, container, false);
         ArrayList<Contact> contacts = Contact.read(getContext());
 
         ListView listview = (ListView) view.findViewById(R.id.local_contact_list);
@@ -46,7 +47,6 @@ public class First_fragment extends Fragment {
         for(int i = 0 ; i < contacts.size() ; i ++) {
             iter = contacts.get(i);
             adapter.addItem(iter.getPhoneNumber(), iter.getName(), iter.getId());
-            Logger.log("contact nameeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", iter.getName());
         }
 
 

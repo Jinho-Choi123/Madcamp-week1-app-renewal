@@ -1,5 +1,8 @@
 package com.example.myapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -9,69 +12,81 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class DB {
-    private Long GoogleUserId;
+    private String GoogleUserId;
+    private DatabaseReference Ref;
 
-    public DB (Long userId){
+    public DB (String userId){
         this.GoogleUserId = userId;
+        DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference contactsRef = mRootRef.child("Contacts");
+        this.Ref = contactsRef.child(this.GoogleUserId);
     }
-    DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference contactsRef = mRootRef.child("Contacts");
+
 
     //get contactlist refering to given googleuserId
-    public ArrayList<Contact> fetch() {
-        ArrayList<Contact> db_contact_list = new ArrayList<Contact>();
-
-        contactsRef.child(this.GoogleUserId.toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void fetch(Context context) {
+        Logger.log("ddddddddddddddddddddaaaaaaaaaaaaaaaaaaaaaa"," data");
+        ArrayList<Contact> db_contacts = new ArrayList<>();
+        SharedPreferences sf = context.getSharedPreferences("googleAccount", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sf.edit();
+        editor.remove("db_contacts");
+        editor.commit();
+        this.Ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Gson gson = new Gson();
+
                 String data = snapshot.getValue().toString();
-                JsonObject jsonObj = gson.fromJson(data, JsonObject.class);
-                JsonArray db_contact_list_json = jsonObj.getAsJsonArray("ContactList");
-                Iterator<JsonElement> iter = db_contact_list_json.iterator();
+                Logger.log("ddddddddddddddddddddaaaaaaaaaaaaaaaaaaaaaa", data);
 
-                JsonObject iter_json = new JsonObject();
-                while(iter.hasNext()) {
-                    iter_json = iter.next().getAsJsonObject();
-                    Contact contact = gson.fromJson(iter_json, Contact.class);
-                    db_contact_list.add(contact);
-                }
-
+                editor.putString("db_contacts", data);
+                editor.commit();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-
         });
 
-        return db_contact_list;
+//        Gson gson = new Gson();
+//        String data = sf.getString("db_contacts", "{}");
+//        Logger.log("helllllllllllllllllllllllllllllllo", data);
+//        JsonElement jsonObj = (JsonElement) JsonParser.parseString(data);
+//        JsonArray contacts = (JsonArray) jsonObj.get("ContactList");
+//        Iterator iter = contacts.iterator();
+
+//        while(iter.hasNext()) {
+//            Contact contact = gson.fromJson((JsonElement) iter.next(), Contact.class);
+//            Logger.log("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz", contact.name);
+//            db_contacts.add(contact);
+//        }
+//        Logger.log("ffffffffffffffffffffff", String.valueOf(db_contacts.size()));
     }
 
-    public void post(ArrayList<Contact> contactList) {
+    public void post(ArrayList<Contact> local_contactList) {
         JsonObject data = new JsonObject();
-        JsonArray local_contact_list = new JsonArray();
+        JsonArray result_contacts = new JsonArray();
         Gson gson = new Gson();
         String RESULT;
         Contact iter;
 
-        for (int i = 0 ; i < contactList.size() ; i++) {
-            iter = contactList.get(i);
-            JsonObject obj = (JsonObject) gson.toJsonTree(iter);
-            local_contact_list.add(obj);
 
-        }
-        data.add("ContactList", local_contact_list);
+        for (int i = 0 ; i < local_contactList.size() ; i++) {
+            iter = local_contactList.get(i);
+            JsonObject obj = (JsonObject) gson.toJsonTree(iter);
+            result_contacts.add(obj);
+            }
+
+        data.add("ContactList", result_contacts);
         data.addProperty("OwnerID", this.GoogleUserId);
         RESULT = gson.toJson(data);
-        contactsRef.child(this.GoogleUserId.toString()).setValue(RESULT);
+        Ref.setValue(RESULT);
     }
 }
