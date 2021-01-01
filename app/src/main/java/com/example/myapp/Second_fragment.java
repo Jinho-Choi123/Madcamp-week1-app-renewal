@@ -7,15 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -31,7 +35,7 @@ public class Second_fragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static Second_fragment newInstance(String param1) {
+    public static Second_fragment newInstance() {
         Second_fragment fragment = new Second_fragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -49,42 +53,42 @@ public class Second_fragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_second_fragment, container, false);
         ListView listview = (ListView) view.findViewById(R.id.db_contact_list);
+        Contact.ContactAdapter adapter = new Contact.ContactAdapter();
+        listview.setAdapter(adapter);
+
 
         SharedPreferences sf = this.getActivity().getSharedPreferences("googleAccount", MODE_PRIVATE);
+
         String userId = sf.getString("userId", "");
         DB db = new DB(userId);
-        db.fetch(getContext());
 
-        ArrayList<Contact> db_contacts = new ArrayList<>();
-        ArrayList<Contact> contacts = Contact.read(getContext());
-        db.fetch(getContext());
-        Gson gson = new Gson();
-        String data = sf.getString("db_contacts", "{}");
-        Logger.log("helllllllllllllllllllllllllllllllo", data);
-        JsonObject jsonObj = (JsonObject) JsonParser.parseString(data);
-        JsonArray contacts_ = (JsonArray) jsonObj.get("ContactList");
-        Iterator iter = contacts_.iterator();
+        db.Ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Logger.log("111111111111111111111", "11111111111111111111");
 
-        while(iter.hasNext()) {
-            Contact contact = gson.fromJson((JsonElement) iter.next(), Contact.class);
-            Logger.log("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz", contact.name);
-            db_contacts.add(contact);
-        }
+                String data = snapshot.getValue().toString();
+                Gson gson = new Gson();
+                JsonObject jsonElement = (JsonObject) JsonParser.parseString(data);
+                JsonArray contacts = (JsonArray) jsonElement.get("ContactList");
+                Iterator iter = contacts.iterator();
 
-        ArrayList<Contact> local_contacts = Contact.read(getContext());
-        Contact.ContactAdapter adapter = new Contact.ContactAdapter();
+                while(iter.hasNext()) {
+                    Contact contact = gson.fromJson((JsonElement) iter.next(), Contact.class);
+                    adapter.addItem(contact.getPhoneNumber(), contact.getName(), contact.getId());
+                }
 
-        ArrayList<Contact> result_contacts = db_contacts;
-        //filterout existing contact
+                adapter.notifyDataSetChanged();
 
-        listview.setAdapter(adapter);
-        Contact contact_iter;
-        for(int i=0 ; i < result_contacts.size() ; i ++) {
-            contact_iter = result_contacts.get(i);
-            adapter.addItem(contact_iter.getPhoneNumber(),contact_iter.getName(), contact_iter.getId());
-        }
+            }
 
-        adapter.notifyDataSetChanged();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         return view;
+
+
     }
 }

@@ -25,14 +25,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -44,25 +41,36 @@ public class MainActivity extends AppCompatActivity {
 
         String googleUserId = acct.getId();
         Context context = this;
-        BottomNavigationView bottomNavigationView = findViewById(R.id.upload_bottom_navbar);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        SharedPreferences sf = getSharedPreferences("googleAccount", MODE_PRIVATE);
+        String userId = sf.getString("userId", "");
+        DB db = new DB(userId);
+
+//        BottomNavigationView upload_bottomnav = (BottomNavigationView) findViewById(R.id.upload_bottom_navbar);
+//        upload_bottomnav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()) {
+//                    case R.id.upload_btn:
+//                        Logger.log("hellooooooooooooooooooooooooooo", "ooooooooooooooooo");
+//                        ArrayList<Contact> contacts = Contact.read(context);
+//                        db.post(contacts);
+//                        break;
+//                }
+//
+//                return true;
+//            }
+//        });
+
+        BottomNavigationView refresh_bottomnav = (BottomNavigationView) findViewById(R.id.refresh_bottom_navbar);
+        refresh_bottomnav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                SharedPreferences sf = getSharedPreferences("googleAccount", MODE_PRIVATE);
-                String userId = sf.getString("userId", "");
-                DB db = new DB(userId);
-
                 switch (item.getItemId()) {
-                    case R.id.upload_btn:
-                        Logger.log("hellooooooooooooooooooooooooooo", "ooooooooooooooooo");
-                        ArrayList<Contact> contacts = Contact.read(context);
-                        db.post(contacts);
-                        break;
                     case R.id.refresh_btn:
-                        loadFragment(new Second_fragment());
+                        loadFragment(Second_fragment.newInstance());
                         break;
                 }
-
                 return true;
             }
         });

@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import static android.content.Context.MODE_PRIVATE;
 
 public class DB {
-    private String GoogleUserId;
-    private DatabaseReference Ref;
+    public String GoogleUserId;
+    public DatabaseReference Ref;
 
     public DB (String userId){
         this.GoogleUserId = userId;
@@ -36,8 +36,6 @@ public class DB {
         ArrayList<Contact> db_contacts = new ArrayList<>();
         SharedPreferences sf = context.getSharedPreferences("googleAccount", MODE_PRIVATE);
         SharedPreferences.Editor editor = sf.edit();
-        editor.remove("db_contacts");
-        editor.commit();
         this.Ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
