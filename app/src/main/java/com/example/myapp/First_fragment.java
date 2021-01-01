@@ -50,8 +50,8 @@ public class First_fragment extends Fragment {
 
 
         adapter.notifyDataSetChanged();
-
         return view;
+
     }
 }
 

@@ -4,19 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar"
-        />
+        layout="@layout/toolbar" />
 
-    <fragment
-        android:id="@+id/fragment"
-        android:layout_width="482dp"
-        android:layout_height="match_parent"
-        class="com.example.myapp.First_fragment"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="update"
+            android:onClick="selectFrag"
+            android:id="@+id/btn1"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:onClick="selectFrag"
+            android:text="download"
+            android:id="@+id/btn2"/>
 
+        <Button
+            android:id="@+id/btn3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:onClick="selectFrag"
+            android:text="gallery" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:onClick="selectFrag"
+            android:text="chat"
+            android:id="@+id/btn4"/>
+
+
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_place"
+
+        android:name="com.example.myapp.First_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

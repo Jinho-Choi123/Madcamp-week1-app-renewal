@@ -4,13 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".First_fragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_weight="1"
+    >
 
     <ScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0"
         android:fillViewport="true"
         android:scrollbars="none">
 

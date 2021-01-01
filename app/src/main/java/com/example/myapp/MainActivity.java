@@ -3,9 +3,12 @@ package com.example.myapp;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.ForwardingListener;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Logger.log("22222222222222", "33333333333333333");
         setContentView(R.layout.activity_main);
         Logger.log("22222222222222", "4444444444444444444444444444");
@@ -40,20 +44,37 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        Fragment firstfg;
-//        firstfg = new First_fragment();
-//        FragmentManager firstfm = getSupportFragmentManager();
-//        FragmentTransaction firstft = firstfm.beginTransaction();
-//        firstft.add(R.id.fragment, firstfg);
-//        firstft.commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_place, new First_fragment()).commit();
+
+        ActionBar actionBar = getSupportActionBar();
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            actionBar.setTitle(bundle.getString("email"));
+        }
+
+
+
+    }
+    public void selectFrag(View view){
+        Fragment fr;
+        if(view == findViewById(R.id.btn1)){
+            fr = new First_fragment();
+        }else if (view == findViewById(R.id.btn2)){
+            fr = new Second_fragment();
+        }else if (view == findViewById(R.id.btn3)){
+            fr = new Third_fragment();
+        }else{
+            fr = new Fourth_fragment();
+        }
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fm.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_place, fr);
+        fragmentTransaction.commit();
     }
 
-    private void loadFragment(Fragment fragment) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment, fragment);
-        ft.commit();
-    }
+
+
 
     //toolbar UI
     @Override
