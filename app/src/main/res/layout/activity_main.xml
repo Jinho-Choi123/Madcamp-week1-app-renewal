@@ -13,11 +13,54 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="contacts upload"
+            android:onClick="selectFrag"
+            android:textSize="10sp"
+            android:id="@+id/selectFrag1"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="selectFrag"
+            android:textSize="10sp"
+            android:text="contacts download"
+            android:id="@+id/selectFrag2"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="selectFrag"
+            android:text="gallery"
+            android:textSize="10sp"
+            android:id="@+id/selectFrag3"
+            />
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="selectFrag"
+            android:text="chatbot"
+            android:textSize="10sp"
+            android:id="@+id/selectFrag4"
+            />
+    </LinearLayout>
+
+
     <fragment
         android:id="@+id/fragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         class="com.example.myapp.First_fragment"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

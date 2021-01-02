@@ -3,12 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fourth_fragment">
+    tools:context=".Fourth_fragment"
+    android:background="@color/white"
+    xmlns:chatview="http://schemas.android.com/apk/res-auto"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+<co.intentservice.chatui.ChatView
+    android:id="@+id/chat_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    />
 
 </FrameLayout>

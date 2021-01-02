@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -63,6 +64,17 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment, fragment);
         ft.commit();
+    }
+
+    public void selectFrag(View view) {
+        Fragment fr;
+        if(view == findViewById(R.id.selectFrag1)) fr = new First_fragment();
+        else if(view == findViewById(R.id.selectFrag2)) fr = new Second_fragment();
+        else if(view == findViewById(R.id.selectFrag3)) fr = new Third_fragment();
+        else fr = new Fourth_fragment();
+
+        loadFragment(fr);
+        return;
     }
 
     //toolbar UI

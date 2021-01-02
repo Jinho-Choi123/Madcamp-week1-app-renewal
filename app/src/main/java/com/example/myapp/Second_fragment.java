@@ -108,7 +108,6 @@ public class Second_fragment extends Fragment {
                         FragmentTransaction ft = fm.beginTransaction();
                         ft.replace(R.id.fragment, new Second_fragment());
                         ft.commit();
-                        Logger.log("refersh", "hhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
                         break;
                 }
                 return true;
