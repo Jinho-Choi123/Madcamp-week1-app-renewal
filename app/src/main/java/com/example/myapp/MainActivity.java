@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -45,24 +46,16 @@ public class MainActivity extends AppCompatActivity {
         String userId = sf.getString("userId", "");
         DB db = new DB(userId);
 
-//        BottomNavigationView upload_bottomnav = (BottomNavigationView) findViewById(R.id.upload_bottom_navbar);
-//        upload_bottomnav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                switch (item.getItemId()) {
-//                    case R.id.upload_btn:
-//                        Logger.log("hellooooooooooooooooooooooooooo", "ooooooooooooooooo");
-//                        ArrayList<Contact> contacts = Contact.read(context);
-//                        db.post(contacts);
-//                        break;
-//                }
-//
-//                return true;
-//            }
-//        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            actionBar.setTitle("Hello, " + bundle.getString("email"));
+        }
+
     }
 
     public void loadFragment(Fragment fragment) {

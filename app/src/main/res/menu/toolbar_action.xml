@@ -5,5 +5,8 @@
         android:id="@+id/LOGOUT"
         android:title="LOGOUT"
         app:showAsAction="always"
+        android:icon="@drawable/toolbar_logout"
+        android:elevation="4dp"
         />
+
 </menu>
