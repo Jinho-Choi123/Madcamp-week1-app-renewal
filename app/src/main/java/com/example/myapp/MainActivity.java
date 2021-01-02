@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         }else if (view == findViewById(R.id.btn2)){
             fr = new Second_fragment();
         }else if (view == findViewById(R.id.btn3)){
+
             fr = new Third_fragment();
         }else{
             fr = new Fourth_fragment();

@@ -1,9 +1,13 @@
 package com.example.myapp;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 
 import androidx.fragment.app.Fragment;
 
@@ -23,9 +27,12 @@ public class Third_fragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
+
     public Third_fragment() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -44,7 +51,13 @@ public class Third_fragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    private void moveToNewActivity () {
 
+        Intent i = new Intent(getActivity(), ImagesActivity.class);
+        startActivity(i);
+        ((Activity) getActivity()).overridePendingTransition(0, 0);
+
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +65,18 @@ public class Third_fragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        moveToNewActivity();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
+
         return inflater.inflate(R.layout.fragment_third_fragment, container, false);
+
     }
 }
