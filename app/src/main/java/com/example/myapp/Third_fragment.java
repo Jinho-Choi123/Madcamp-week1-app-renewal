@@ -1,6 +1,5 @@
 package com.example.myapp;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
@@ -8,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +16,16 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Third_fragment extends Fragment {
 
@@ -91,18 +93,21 @@ public class Third_fragment extends Fragment {
             @Override
             public void onItemClick(int position, View v) {
                 if (position == 0) {
+                    takePicture();
+                } else if(position == 1) {
                     getPickImageIntent();
-                } else {
-                    try {
-                        if (!imageList.get(position).isSelected) {
-                            selectImage(position);
-                        } else {
-                            unSelectImage(position);
-                        }
-                    } catch (ArrayIndexOutOfBoundsException ed) {
-                        ed.printStackTrace();
-                    }
                 }
+                    else {
+                        try {
+                            if (!imageList.get(position).isSelected) {
+                                selectImage(position);
+                            } else {
+                                unSelectImage(position);
+                            }
+                        } catch (ArrayIndexOutOfBoundsException ed) {
+                            ed.printStackTrace();
+                        }
+                    }
             }
         });
         setImagePickerList();
@@ -234,13 +239,32 @@ public class Third_fragment extends Fragment {
         imageAdapter.notifyDataSetChanged();
     }
 
-    public boolean isStoragePermissionGranted() {
-        int ACCESS_EXTERNAL_STORAGE = ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if ((ACCESS_EXTERNAL_STORAGE != PackageManager.PERMISSION_GRANTED)) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, STORAGE_PERMISSION);
-            return false;
+    // start the image capture Intent
+    public void takePicture() {
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Continue only if the File was successfully created;
+        File photoFile = createImageFile();
+        if (photoFile != null) {
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
+            startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
         }
-        return true;
+    }
+
+    public File createImageFile() {
+        // Create an image file name
+        String dateTime = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "IMG_" + dateTime + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        try {
+            image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Save a file: path for use with ACTION_VIEW intents
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
     }
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

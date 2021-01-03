@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:text="contacts upload"
             android:onClick="selectFrag"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:id="@+id/selectFrag1"
             />
         <Button
@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="selectFrag"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:text="contacts download"
             android:id="@+id/selectFrag2"
             />
@@ -42,7 +42,7 @@
             android:layout_weight="1"
             android:onClick="selectFrag"
             android:text="gallery"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:id="@+id/selectFrag3"
             />
         <Button
@@ -51,7 +51,7 @@
             android:layout_weight="1"
             android:onClick="selectFrag"
             android:text="chatbot"
-            android:textSize="10sp"
+            android:textSize="8sp"
             android:id="@+id/selectFrag4"
             />
     </LinearLayout>
