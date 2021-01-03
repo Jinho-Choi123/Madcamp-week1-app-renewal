@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".ImagesActivity">
+    tools:context=".Third_fragment">
 
     <androidx.cardview.widget.CardView
         xmlns:Card_View="http://schemas.android.com/tools"
@@ -18,8 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/selected_recycler_view"
@@ -38,4 +36,14 @@
         android:background="#F5F5DC"
         />
 
-</LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/upload_bottom_navbar"
+        android:layout_gravity="bottom"
+        app:menu="@menu/gallery_save_img"
+        />
+
+
+</FrameLayout>

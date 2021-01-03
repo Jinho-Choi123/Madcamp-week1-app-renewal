@@ -61,12 +61,17 @@ public class Third_fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_third_fragment, container, false);
-        if (isStoragePermissionGranted()) {
-            init(view);
-            getAllImages();
-            setImageList();
-            setSelectedImageList();
-        }
+//        if (isStoragePermissionGranted()) {
+//            init(view);
+//            getAllImages();
+//            setImageList();
+//            setSelectedImageList();
+//        }
+
+        init(view);
+        getAllImages();
+        setImageList();
+        setSelectedImageList();
         return view ;
     }
 
