@@ -66,30 +66,32 @@ public class Second_fragment extends Fragment {
         Contact.ContactAdapter adapter = new Contact.ContactAdapter();
         listview.setAdapter(adapter);
 
-
         SharedPreferences sf = this.getActivity().getSharedPreferences("googleAccount", MODE_PRIVATE);
 
         String userId = sf.getString("userId", "");
         DB db = new DB(userId);
+        Logger.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkk", "11111111111111111111");
 
         db.Ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Logger.log("111111111111111111111", "11111111111111111111");
 
                 String data = snapshot.getValue().toString();
+
                 Gson gson = new Gson();
-                JsonObject jsonElement = (JsonObject) JsonParser.parseString(data);
-                JsonArray contacts = (JsonArray) jsonElement.get("ContactList");
-                Iterator iter = contacts.iterator();
+                JsonObject jsonObj = (JsonObject) JsonParser.parseString(data);
+                JsonArray contacts_ = (JsonArray) jsonObj.get("ContactList");
+                Iterator iter = contacts_.iterator();
+
+                Logger.log("the data is lllllldfdfdfsdfadsfallllllll", "kkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+
 
                 while(iter.hasNext()) {
+
                     Contact contact = gson.fromJson((JsonElement) iter.next(), Contact.class);
                     adapter.addItem(contact.getPhoneNumber(), contact.getName(), contact.getId());
+                    adapter.notifyDataSetChanged();
                 }
-
-                adapter.notifyDataSetChanged();
-
             }
 
             @Override

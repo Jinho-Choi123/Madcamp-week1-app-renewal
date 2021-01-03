@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
 
+
 public class DB {
     public String GoogleUserId;
     public DatabaseReference Ref;
@@ -53,19 +54,6 @@ public class DB {
             }
         });
 
-//        Gson gson = new Gson();
-//        String data = sf.getString("db_contacts", "{}");
-//        Logger.log("helllllllllllllllllllllllllllllllo", data);
-//        JsonElement jsonObj = (JsonElement) JsonParser.parseString(data);
-//        JsonArray contacts = (JsonArray) jsonObj.get("ContactList");
-//        Iterator iter = contacts.iterator();
-
-//        while(iter.hasNext()) {
-//            Contact contact = gson.fromJson((JsonElement) iter.next(), Contact.class);
-//            Logger.log("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz", contact.name);
-//            db_contacts.add(contact);
-//        }
-//        Logger.log("ffffffffffffffffffffff", String.valueOf(db_contacts.size()));
     }
 
     public void post(ArrayList<Contact> local_contactList) {
@@ -80,7 +68,7 @@ public class DB {
             iter = local_contactList.get(i);
             JsonObject obj = (JsonObject) gson.toJsonTree(iter);
             result_contacts.add(obj);
-            }
+        }
 
         data.add("ContactList", result_contacts);
         data.addProperty("OwnerID", this.GoogleUserId);
