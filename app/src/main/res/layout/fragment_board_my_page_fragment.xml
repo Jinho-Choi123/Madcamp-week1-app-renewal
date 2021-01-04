@@ -3,13 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Board_myPage_fragment"
-    android:background="@color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".Board_myPage_fragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="this is board mypage fragment" />
+        android:id="@+id/BoardMypage_recyclerview"
+        android:scrollbars="vertical"
+        />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:src="@drawable/plus"
+            app:fab_colorNormal="@color/codeGray"
+            app:fab_colorPressed="@color/gray"
+            />
+
 
 </FrameLayout>

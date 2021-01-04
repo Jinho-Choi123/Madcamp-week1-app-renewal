@@ -2,8 +2,6 @@ package com.example.myapp;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 public class Board_DB {
     public String GoogleUserId;
@@ -17,16 +15,11 @@ public class Board_DB {
         this.Ref = this.board_Ref.child(this.GoogleUserId);
     }
 
-    public void post(Board_content boardContent) {
-        JsonObject data = new JsonObject();
-        Gson gson = new Gson();
-        String RESULT;
-        data.addProperty("Content", boardContent.getContent());
-        data.addProperty("Author", boardContent.getAuthor());
-        data.addProperty("Date", boardContent.getDate());
-        data.addProperty("Title", boardContent.getTitle());
-        RESULT = gson.toJson(data);
-        this.Ref.child(boardContent.getTitle()).setValue(RESULT);
+    public void writeNewPost(Board_content board_content) {
+        // Create new post at /user-posts/$userid/$postid and at
+        // /posts/$postid simultaneously
+
+        this.Ref.child(board_content.getTitle()).setValue(board_content);
     }
 
 //    public ArrayList<Board_content> read_all() {

@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -18,6 +19,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,6 +40,7 @@ public class Third_fragment extends Fragment {
     com.example.myapp.SelectedImageAdapter selectedImageAdapter;
     com.example.myapp.ImageAdapter imageAdapter;
     String[] projection = {MediaStore.MediaColumns.DATA};
+    ArrayList<Uri> selectedImageURI = new ArrayList<Uri>();
     File image;
 
     public Third_fragment() {
@@ -58,12 +62,39 @@ public class Third_fragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_third_fragment, container, false);
+
+        //handler when share button is clicked
+        BottomNavigationView share_bottomnav = (BottomNavigationView) view.findViewById(R.id.gallery_share_btn);
+        share_bottomnav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.gallery_share_btn:
+                        Logger.log("butttttttttton clickclickclciclclciclck", selectedImageURI.toString());
+                        Intent shareIntent = new Intent();
+                        shareIntent.setAction(Intent.ACTION_SEND);
+                        shareIntent.putExtra(Intent.EXTRA_TEXT, "this is my text to send");
+                        shareIntent.setType("text/plain");
+                        startActivity(Intent.createChooser(shareIntent, null));
+                        //shareIntent.putExtra(Intent.EXTRA_STREAM, selectedImageURI);
+                        //shareIntent.setType("image/*");
+                        //startActivity(Intent.createChooser(shareIntent, "Share image to .."));
+                        break;
+                }
+                return true;
+
+            }
+        });
+
+
         init(view);
         getAllImages();
         setImageList();
         setSelectedImageList();
         return view ;
     }
+
+
 
     public void init(View view) {
         imageRecyclerView = view.findViewById(R.id.recycler_view);
@@ -84,7 +115,7 @@ public class Third_fragment extends Fragment {
                     getPickImageIntent();
                 } else {
                     try {
-                        if (!imageList.get(position).isSelected) {
+                        if (!imageList.get(position).isSelected()) {
                             selectImage(position);
                         } else {
                             unSelectImage(position);
@@ -122,9 +153,9 @@ public class Third_fragment extends Fragment {
         Cursor cursor = getContext().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null);
         while (cursor.moveToNext()) {
             String absolutePathOfImage = cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA));
-            ImageModel ImageModel = new ImageModel();
-            ImageModel.setImage(absolutePathOfImage);
-            imageList.add(ImageModel);
+            ImageModel imageModel = new ImageModel();
+            imageModel.setImage(absolutePathOfImage);
+            imageList.add(imageModel);
         }
         cursor.close();
     }
@@ -167,6 +198,7 @@ public class Third_fragment extends Fragment {
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
                 if (mCurrentPhotoPath != null) {
                     addImage(mCurrentPhotoPath);
+                    Logger.log("mcurrrrrrrrrrrrrrengttljlnfv", mCurrentPhotoPath);
                 }
             } else if (requestCode == PICK_IMAGES) {
                 if (data.getClipData() != null) {
@@ -174,10 +206,12 @@ public class Third_fragment extends Fragment {
                     for (int i = 0; i < mClipData.getItemCount(); i++) {
                         ClipData.Item item = mClipData.getItemAt(i);
                         Uri uri = item.getUri();
+                        selectedImageURI.add(uri);
                         getImageFilePath(uri);
                     }
                 } else if (data.getData() != null) {
                     Uri uri = data.getData();
+                    selectedImageURI.add(uri);
                     getImageFilePath(uri);
                 }
             }
@@ -186,6 +220,7 @@ public class Third_fragment extends Fragment {
 
     // Get image file path
     public void getImageFilePath(Uri uri) {
+        Logger.log("this is image uritttttttttttttttt", uri.toString());
         Cursor cursor = getContext().getContentResolver().query(uri, projection, null, null, null);
         if (cursor != null) {
             while (cursor.moveToNext()) {
