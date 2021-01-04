@@ -73,7 +73,9 @@ public class Second_fragment extends Fragment {
         db.Ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String data = snapshot.getValue().toString();
+                String data;
+                if(snapshot.getValue() == null) return;
+                else data = snapshot.getValue().toString();
                 Gson gson = new Gson();
                 JsonObject jsonobj = (JsonObject) JsonParser.parseString(data);
                 JsonArray contacts = (JsonArray) jsonobj.get("ContactList");
