@@ -8,31 +8,32 @@
     android:orientation="vertical"
     tools:context=".Third_fragment">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <androidx.cardview.widget.CardView
-                xmlns:Card_View="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                Card_View:cardBackgroundColor="@color/white">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/selected_recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-            </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView xmlns:Card_View="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            Card_View:cardBackgroundColor="@color/white">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
+                android:id="@+id/selected_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="375dp"
-                android:background="#F5F5DC"
-                android:scrollbars="none" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
 
-        </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="375dp"
+            android:background="#F5F5DC"
+            android:scrollbars="none" />
+
+    </LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
