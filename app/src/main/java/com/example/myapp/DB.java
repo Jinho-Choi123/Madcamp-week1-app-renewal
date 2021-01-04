@@ -32,7 +32,6 @@ public class DB {
 
     //get contactlist refering to given googleuserId
     public void fetch(Context context) {
-        Logger.log("ddddddddddddddddddddaaaaaaaaaaaaaaaaaaaaaa"," data");
         ArrayList<Contact> db_contacts = new ArrayList<>();
         SharedPreferences sf = context.getSharedPreferences("googleAccount", MODE_PRIVATE);
         SharedPreferences.Editor editor = sf.edit();
@@ -41,7 +40,6 @@ public class DB {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 String data = snapshot.getValue().toString();
-                Logger.log("ddddddddddddddddddddaaaaaaaaaaaaaaaaaaaaaa", data);
 
                 editor.putString("db_contacts", data);
                 editor.commit();
