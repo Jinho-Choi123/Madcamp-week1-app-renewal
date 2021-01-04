@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import co.intentservice.chatui.ChatView;
-import co.intentservice.chatui.models.ChatMessage;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,16 +38,7 @@ public class Fourth_fragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_fourth_fragment, container, false);
 
-        ChatView chatview = view.findViewById(R.id.chat_view);
 
-        //event handler when send button is clicked
-        chatview.setOnSentMessageListener(new ChatView.OnSentMessageListener() {
-            @Override
-            public boolean sendMessage(ChatMessage chatMessage) {
-
-                return true;
-            }
-        });
 
         return view;
     }

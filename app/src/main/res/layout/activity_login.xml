@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Login"
     android:orientation="vertical"
+    android:layout_marginTop="100dp"
     >
 
 
@@ -15,15 +16,15 @@
         android:gravity="center_horizontal"
         android:paddingTop="40sp"
         android:text="Google Login"
+        android:layout_marginBottom="40dp"
         android:textSize="40sp" />
-
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_margin="4dp" />
 
 
 </LinearLayout>

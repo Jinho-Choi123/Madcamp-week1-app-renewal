@@ -2,11 +2,13 @@ package com.example.myapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -27,6 +29,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class MainActivity extends AppCompatActivity {
+    Button btn1, btn2, btn3, btn4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +59,22 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             actionBar.setTitle("Hello, " + bundle.getString("email"));
+
         }
 
+        btn1 = findViewById(R.id.selectFrag1);
+        btn2 = findViewById(R.id.selectFrag2);
+        btn3 = findViewById(R.id.selectFrag3);
+        btn4 = findViewById(R.id.selectFrag4);
+        btn1.setBackgroundColor(Color.GRAY);
+        btn2.setBackgroundColor(Color.BLACK);
+        btn3.setBackgroundColor(Color.BLACK);
+        btn4.setBackgroundColor(Color.BLACK);
     }
 
+
     public void loadFragment(Fragment fragment) {
+
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.fragment, fragment);
@@ -68,10 +83,36 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectFrag(View view) {
         Fragment fr;
-        if(view == findViewById(R.id.selectFrag1)) fr = new First_fragment();
-        else if(view == findViewById(R.id.selectFrag2)) fr = new Second_fragment();
-        else if(view == findViewById(R.id.selectFrag3)) fr = new Third_fragment();
-        else fr = new Fourth_fragment();
+
+
+        if(view == findViewById(R.id.selectFrag1)) {
+            fr = new First_fragment();
+            btn1.setBackgroundColor(Color.GRAY);
+            btn2.setBackgroundColor(Color.BLACK);
+            btn3.setBackgroundColor(Color.BLACK);
+            btn4.setBackgroundColor(Color.BLACK);
+        }
+        else if(view == findViewById(R.id.selectFrag2)) {
+            fr = new Second_fragment();
+            btn1.setBackgroundColor(Color.BLACK);
+            btn2.setBackgroundColor(Color.GRAY);
+            btn3.setBackgroundColor(Color.BLACK);
+            btn4.setBackgroundColor(Color.BLACK);
+        }
+        else if(view == findViewById(R.id.selectFrag3)) {
+            fr = new Third_fragment();
+            btn1.setBackgroundColor(Color.BLACK);
+            btn2.setBackgroundColor(Color.BLACK);
+            btn3.setBackgroundColor(Color.GRAY);
+            btn4.setBackgroundColor(Color.BLACK);
+        }
+        else {
+            fr = new Fourth_fragment();
+            btn1.setBackgroundColor(Color.BLACK);
+            btn2.setBackgroundColor(Color.BLACK);
+            btn3.setBackgroundColor(Color.BLACK);
+            btn4.setBackgroundColor(Color.GRAY);
+        }
 
         loadFragment(fr);
         return;
@@ -113,4 +154,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
