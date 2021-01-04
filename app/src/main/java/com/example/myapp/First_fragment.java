@@ -12,9 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
@@ -56,32 +53,13 @@ public class First_fragment extends Fragment {
         String userId = sf.getString("userId", "");
         DB db = new DB(userId);
 
-
         Contact iter;
-        String RESULT;
-        JsonObject data = new JsonObject();
-        JsonArray contacts_json = new JsonArray();
-
 
         for(int i = 0 ; i < contacts.size() ; i ++) {
             iter = contacts.get(i);
-            JsonObject obj = new JsonObject();
-            obj.addProperty("id", iter.getId());
-            obj.addProperty("name", iter.getName());
-            obj.addProperty("phonenumber", iter.getPhoneNumber());
             adapter.addItem(iter.getPhoneNumber(), iter.getName(), iter.getId());
-            contacts_json.add(obj);
         }
-
-        data.addProperty("ContactList", String.valueOf(contacts_json));
-        data.addProperty("OwnerId", userId);
-        RESULT = new Gson().toJson(data);
-
-
         adapter.notifyDataSetChanged();
-
-
-
 
         BottomNavigationView upload_bottomnav = (BottomNavigationView) view.findViewById(R.id.upload_bottom_navbar);
         upload_bottomnav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -89,7 +67,7 @@ public class First_fragment extends Fragment {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.upload_btn:
-                        db.Ref.setValue(RESULT);
+                        db.post(contacts);
                         break;
                 }
                 return true;

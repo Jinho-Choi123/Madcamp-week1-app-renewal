@@ -70,28 +70,20 @@ public class Second_fragment extends Fragment {
 
         String userId = sf.getString("userId", "");
         DB db = new DB(userId);
-        Logger.log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkk", "11111111111111111111");
-
         db.Ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 String data = snapshot.getValue().toString();
-
                 Gson gson = new Gson();
-                JsonObject jsonObj = (JsonObject) JsonParser.parseString(data);
-                JsonArray contacts_ = (JsonArray) jsonObj.get("ContactList");
-                Iterator iter = contacts_.iterator();
-
-                Logger.log("the data is lllllldfdfdfsdfadsfallllllll", "kkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
-
+                JsonObject jsonobj = (JsonObject) JsonParser.parseString(data);
+                JsonArray contacts = (JsonArray) jsonobj.get("ContactList");
+                Iterator iter = contacts.iterator();
 
                 while(iter.hasNext()) {
-
                     Contact contact = gson.fromJson((JsonElement) iter.next(), Contact.class);
                     adapter.addItem(contact.getPhoneNumber(), contact.getName(), contact.getId());
-                    adapter.notifyDataSetChanged();
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -99,6 +91,7 @@ public class Second_fragment extends Fragment {
 
             }
         });
+
 
         BottomNavigationView refresh_bottomnav = (BottomNavigationView) view.findViewById(R.id.refresh_bottom_navbar);
         refresh_bottomnav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
