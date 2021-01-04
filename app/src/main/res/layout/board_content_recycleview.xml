@@ -10,25 +10,53 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="3dp"
         android:id="@+id/board_content_card"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
+        card:cardUseCompatPadding="true"
+        card:cardElevation="10dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginBottom="10dp"
             >
-            <TextView
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/card_title"/>
+                android:orientation="horizontal"
+                android:layout_marginBottom="10dp"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="8"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_title"
+                    android:textSize="25sp"
+                    android:paddingLeft="4dp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:gravity="left"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_date"/>
+
+            </LinearLayout>
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/card_date"/>
-            <TextView
+                android:textSize="15sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/card_content"
+                android:padding="8dp"
                 />
+
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

@@ -61,13 +61,9 @@ public class Board_fragment extends Fragment {
         board_db.board_Ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Logger.log("helllllllllllllllo world", "!!!!!!!!!!!!!!!!!");
                 for (DataSnapshot snapshot_ : snapshot.getChildren()) {
-                    Logger.log("helllllllllllllllo by!!", "bbbbbbbbbbbbbb");
                     for(DataSnapshot board_snapshot : snapshot_.getChildren()) {
-                        Logger.log("helllllllllllllllo by!!", "ccccccccccccccccc");
                         Board_content content= board_snapshot.getValue(Board_content.class);
-                        Logger.log("ggggggggggggggg", content.getContent());
                         board_content.add(content);
                     }
                 }
