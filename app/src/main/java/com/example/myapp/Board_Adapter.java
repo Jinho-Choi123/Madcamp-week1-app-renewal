@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class Board_Adapter extends RecyclerView.Adapter<Board_Adapter.ViewHolder> {
+public class Board_Adapter extends RecyclerView.Adapter<Board_Adapter.ViewHolder>{
     private Context context;
     private ArrayList<Board_content> boardContents;
 
@@ -18,12 +18,14 @@ public class Board_Adapter extends RecyclerView.Adapter<Board_Adapter.ViewHolder
         public TextView titleView;
         public TextView dateView;
         public TextView contentView;
+        public TextView authorView;
 
         public ViewHolder(View view) {
             super(view);
             titleView = (TextView) view.findViewById(R.id.card_title);
             dateView = (TextView) view.findViewById(R.id.card_date);
             contentView = (TextView) view.findViewById(R.id.card_content);
+            authorView = (TextView) view.findViewById(R.id.byauthor);
         }
     }
 
@@ -44,6 +46,7 @@ public class Board_Adapter extends RecyclerView.Adapter<Board_Adapter.ViewHolder
         holder.titleView.setText(this.boardContents.get(position).getTitle());
         holder.dateView.setText(this.boardContents.get(position).getDate());
         holder.contentView.setText(this.boardContents.get(position).getContent());
+        holder.authorView.setText("by " + this.boardContents.get(position).getAuthor());
     }
 
     @Override

@@ -56,10 +56,19 @@
                 android:id="@+id/card_content"
                 android:padding="8dp"
                 />
-            <TextView
-                android:layout_width="match_parent"
+
+            <Button
+                android:id="@+id/delete_board"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/byauthor"/>
+                android:text="delete"
+                />
+            <Button
+                android:id="@+id/update_board"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="update"
+                />
 
 
         </LinearLayout>

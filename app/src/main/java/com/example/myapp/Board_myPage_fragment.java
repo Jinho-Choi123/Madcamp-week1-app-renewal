@@ -48,14 +48,17 @@ public class Board_myPage_fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        SharedPreferences sf = this.getActivity().getSharedPreferences("googleAccount", MODE_PRIVATE);
+        String userId = sf.getString("userId", "");
+        Board_DB board_db = new Board_DB(userId);
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_board_my_page_fragment, container, false);
         FloatingActionButton fab = view.findViewById(R.id.fab);
@@ -78,12 +81,10 @@ public class Board_myPage_fragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         ArrayList<Board_content> board_content = new ArrayList<Board_content>();
-        RecyclerView.Adapter boardAdapter = new Board_Adapter(board_content);
+        RecyclerView.Adapter boardAdapter = new Board_myPage_Adapter(board_content, board_db, getContext());
         recyclerView.setAdapter(boardAdapter);
 
-        SharedPreferences sf = this.getActivity().getSharedPreferences("googleAccount", MODE_PRIVATE);
-        String userId = sf.getString("userId", "");
-        Board_DB board_db = new Board_DB(userId);
+
 
         Gson gson = new Gson();
 
@@ -135,5 +136,6 @@ public class Board_myPage_fragment extends Fragment {
                 }).show();
 
     }
+
 
 }
