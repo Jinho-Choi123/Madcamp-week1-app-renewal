@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Board_fragment#newInstance} factory method to
@@ -57,7 +60,10 @@ public class Board_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_board_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_board_my_page_fragment, container, false);
+
+
+
+        return view;
     }
 }

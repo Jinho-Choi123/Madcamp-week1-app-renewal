@@ -29,7 +29,9 @@ public class Fourth_fragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -37,6 +39,8 @@ public class Fourth_fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_fourth_fragment, container, false);
+        
+
 
 
 

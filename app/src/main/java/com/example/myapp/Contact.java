@@ -46,7 +46,6 @@ public class Contact {
     public static class ContactAdapter extends BaseAdapter {
         private TextView phoneNumber;
         private TextView name;
-        private TextView id;
         private ArrayList<Contact> contact_list = new ArrayList<Contact>();
 
         public ContactAdapter() {
