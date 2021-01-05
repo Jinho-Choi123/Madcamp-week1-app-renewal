@@ -2,9 +2,11 @@ package com.example.myapp;
 
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -72,13 +76,15 @@ public class Third_fragment extends Fragment {
                     case R.id.gallery_share_btn:
                         Logger.log("butttttttttton clickclickclciclclciclck", selectedImageURI.toString());
                         Intent shareIntent = new Intent();
-                        shareIntent.setAction(Intent.ACTION_SEND);
-                        shareIntent.putExtra(Intent.EXTRA_TEXT, "this is my text to send");
-                        shareIntent.setType("text/plain");
+                        shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+                        //shareIntent.putExtra(Intent.EXTRA_TEXT, "this is my text to send");
+                        //shareIntent.setType("text/plain");
                         startActivity(Intent.createChooser(shareIntent, null));
-                        //shareIntent.putExtra(Intent.EXTRA_STREAM, selectedImageURI);
-                        //shareIntent.setType("image/*");
-                        //startActivity(Intent.createChooser(shareIntent, "Share image to .."));
+                        for (int i = 0; i < selectedImageList.size(); i++) {
+                            shareIntent.putExtra(Intent.EXTRA_STREAM, selectedImageURI);
+                            shareIntent.setType("image/*");
+                        }
+                        startActivity(Intent.createChooser(shareIntent, "Share image to .."));
                         break;
                 }
                 return true;
@@ -173,8 +179,34 @@ public class Third_fragment extends Fragment {
         if (!selectedImageList.contains(imageList.get(position).getImage())) {
             imageList.get(position).setSelected(true);
             selectedImageList.add(0, imageList.get(position).getImage());
+
+            String fileName= imageList.get(position).getImage().toString();
+            Uri fileUri = Uri.parse("file:"+fileName);
+            String filePath = fileUri.getPath();
+
+            Cursor c = getContext().getContentResolver().query( MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    null, "_data = '" + filePath + "'", null, null );
+            c.moveToNext();
+
+            int id = c.getInt( c.getColumnIndex( "_id" ) );
+            Uri uri = ContentUris.withAppendedId( MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id );
+            Logger.log("filepath",uri.toString());
+
+
+            selectedImageURI.add(uri);
+            Logger.log("filepath", selectedImageURI.toString());
+
+
+
+
+
+
+
+
+
             selectedImageAdapter.notifyDataSetChanged();
             imageAdapter.notifyDataSetChanged();
+
         }
     }
 
@@ -187,6 +219,22 @@ public class Third_fragment extends Fragment {
                     selectedImageList.remove(i);
                     selectedImageAdapter.notifyDataSetChanged();
                     imageAdapter.notifyDataSetChanged();
+
+
+                    String fileName= imageList.get(position).getImage().toString();
+                    Uri fileUri = Uri.parse("file:"+fileName);
+                    String filePath = fileUri.getPath();
+
+                    Cursor c = getContext().getContentResolver().query( MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                            null, "_data = '" + filePath + "'", null, null );
+                    c.moveToNext();
+
+                    int id = c.getInt( c.getColumnIndex( "_id" ) );
+                    Uri uri = ContentUris.withAppendedId( MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id );
+                    Logger.log("filepath",uri.toString());
+
+
+                    selectedImageURI.remove(uri);
                 }
             }
         }
@@ -207,8 +255,9 @@ public class Third_fragment extends Fragment {
                         ClipData.Item item = mClipData.getItemAt(i);
                         Uri uri = item.getUri();
                         selectedImageURI.add(uri);
-
+                        Logger.log("dddddddd",selectedImageList.get(i));
                         getImageFilePath(uri);
+
                     }
                 } else if (data.getData() != null) {
                     Uri uri = data.getData();
