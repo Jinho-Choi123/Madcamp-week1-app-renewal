@@ -60,6 +60,11 @@ public class Second_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //get contact list of local
+        Contact.ContactUtil contactutil = new Contact.ContactUtil();
+        ArrayList<Contact> local_contacts = Contact.read(getContext());
+
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_second_fragment, container, false);
         ListView listview = (ListView) view.findViewById(R.id.db_contact_list);
@@ -80,10 +85,23 @@ public class Second_fragment extends Fragment {
                 JsonObject jsonobj = (JsonObject) JsonParser.parseString(data);
                 JsonArray contacts = (JsonArray) jsonobj.get("ContactList");
                 Iterator iter = contacts.iterator();
+                int chk = 0;
 
                 while(iter.hasNext()) {
+                    chk = 0;
                     Contact contact = gson.fromJson((JsonElement) iter.next(), Contact.class);
-                    adapter.addItem(contact.getPhoneNumber(), contact.getName(), contact.getId());
+
+                    Iterator<Contact> local_iterator = local_contacts.iterator();
+                    Contact local_iter;
+                    while(local_iterator.hasNext()) {
+                        local_iter = local_iterator.next();
+                        if((contact.getPhoneNumber().equals(local_iter.getPhoneNumber()) ) && (contact.getName().equals(local_iter.getName()))) {
+                            adapter.addItem(contact.getPhoneNumber(), contact.getName(), contact.getId(), true);
+                            chk = 1;
+                            break;
+                        }
+                    }
+                    if(chk == 0) adapter.addItem(contact.getPhoneNumber(), contact.getName(), contact.getId(), false);
                 }
                 adapter.notifyDataSetChanged();
             }

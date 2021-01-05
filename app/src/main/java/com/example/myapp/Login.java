@@ -90,6 +90,9 @@ public class Login extends AppCompatActivity {
             }
         });
 
+        signin.setColorScheme(SignInButton.COLOR_LIGHT);
+
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -122,6 +125,8 @@ public class Login extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             String email = account.getEmail();
+            String Given_name = account.getGivenName();
+            String Family_name = account.getFamilyName();
             String googleUserId = account.getId();
             SharedPreferences sf = getSharedPreferences("googleAccount", MODE_PRIVATE);
             SharedPreferences.Editor editor = sf.edit();
@@ -132,6 +137,8 @@ public class Login extends AppCompatActivity {
             Intent intent = new Intent(Login.this, MainActivity.class);
 
             intent.putExtra("email", email);
+            intent.putExtra("given_name", Given_name);
+            intent.putExtra("family_name", Family_name);
 
             startActivity(intent);
             //update UI(account);

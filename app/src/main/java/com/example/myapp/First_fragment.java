@@ -57,7 +57,7 @@ public class First_fragment extends Fragment {
 
         for(int i = 0 ; i < contacts.size() ; i ++) {
             iter = contacts.get(i);
-            adapter.addItem(iter.getPhoneNumber(), iter.getName(), iter.getId());
+            adapter.addItem(iter.getPhoneNumber(), iter.getName(), iter.getId(), false);
         }
         adapter.notifyDataSetChanged();
 
