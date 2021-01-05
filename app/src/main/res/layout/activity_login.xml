@@ -6,20 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".Login"
     android:orientation="vertical"
-    android:layout_marginTop="100dp"
+    android:background="@color/codeGray"
     >
-
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:paddingTop="40sp"
-        android:text="Google Login"
+        android:text="Adapter"
         android:layout_marginBottom="40dp"
+        android:fontFamily="@font/login_fontstyle"
+
         android:textSize="40sp" />
 
+    <ImageView
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/login_icon"
+        />
+
     <com.google.android.gms.common.SignInButton
+        android:paddingTop="100dp"
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

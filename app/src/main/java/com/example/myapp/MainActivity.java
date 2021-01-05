@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
-            actionBar.setTitle("Hello, " + bundle.getString("email"));
+            actionBar.setTitle("Hello, " + bundle.getString("given_name")+" "+ bundle.getString("family_name"));
 
         }
 
