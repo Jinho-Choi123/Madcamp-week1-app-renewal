@@ -2,11 +2,16 @@ package com.example.myapp;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 /**
@@ -42,8 +47,31 @@ public class Fourth_fragment extends Fragment {
         
 
 
+        BottomNavigationView board_bottom_nav = (BottomNavigationView) view.findViewById(R.id.board_nav_bar);
+        board_bottom_nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.Board:
+                        loadFragment(new Board_fragment());
+                        break;
+
+                    case R.id.MyPage:
+                        loadFragment(new Board_myPage_fragment());
+                        break;
+                }
+                return true;
+            }
+        });
 
 
         return view;
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.board_fragment, fragment);
+        ft.commit();
     }
 }

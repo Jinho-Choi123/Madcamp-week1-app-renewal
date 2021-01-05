@@ -37,8 +37,8 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:layout_width="match_parent"
-            android:id="@+id/gallery_save_btn"
-            app:menu="@menu/gallery_save_img"
+            android:id="@+id/gallery_share_btn"
+            app:menu="@menu/gallery_share_img"
             android:layout_gravity="bottom"
             android:layout_height="wrap_content" />
 

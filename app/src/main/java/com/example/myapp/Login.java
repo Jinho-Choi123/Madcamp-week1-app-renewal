@@ -125,6 +125,7 @@ public class Login extends AppCompatActivity {
             String googleUserId = account.getId();
             SharedPreferences sf = getSharedPreferences("googleAccount", MODE_PRIVATE);
             SharedPreferences.Editor editor = sf.edit();
+            editor.putString("userEmail", email);
             editor.putString("userId", googleUserId);
             editor.apply();
             // Signed in successfully, show authenticated UI.

@@ -18,7 +18,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
-        android:id="@+id/gallery_save_btn"
+        android:id="@+id/board_nav_bar"
         android:layout_gravity="bottom"
         android:layout_height="wrap_content"
         app:menu="@menu/board_bottom_navbar"/>

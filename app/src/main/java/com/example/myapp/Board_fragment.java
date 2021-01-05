@@ -1,49 +1,34 @@
 package com.example.myapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Board_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
+
 public class Board_fragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public Board_fragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Board_fragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static Board_fragment newInstance(String param1, String param2) {
         Board_fragment fragment = new Board_fragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,16 +36,48 @@ public class Board_fragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_board_my_page_fragment, container, false);
+        View view =  inflater.inflate(R.layout.fragment_board_fragment, container, false);
+
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.BoardContent_recyclerview);
+        recyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+        ArrayList<Board_content> board_content = new ArrayList<Board_content>();
+        RecyclerView.Adapter boardAdapter = new Board_Adapter(board_content);
+        recyclerView.setAdapter(boardAdapter);
+
+        SharedPreferences sf = this.getActivity().getSharedPreferences("googleAccount", MODE_PRIVATE);
+        String userId = sf.getString("userId", "");
+        Board_DB board_db = new Board_DB(userId);
+
+        Gson gson = new Gson();
+
+        board_db.board_Ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot snapshot_ : snapshot.getChildren()) {
+                    for(DataSnapshot board_snapshot : snapshot_.getChildren()) {
+                        Board_content content= board_snapshot.getValue(Board_content.class);
+                        board_content.add(content);
+                    }
+                }
+                boardAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
