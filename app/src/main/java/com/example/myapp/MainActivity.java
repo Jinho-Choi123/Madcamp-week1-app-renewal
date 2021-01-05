@@ -125,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
     //signout when LOGOUT btn is clicked
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -150,7 +149,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                 break;
-
         }
         return super.onOptionsItemSelected(item);
     }

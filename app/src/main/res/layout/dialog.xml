@@ -15,6 +15,8 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:text="Title"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="20dp"
             android:textSize="20sp" />
 
         <EditText
@@ -30,13 +32,17 @@
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="20dp"
             android:text="Context"
+            android:layout_marginTop="50dp"
             android:textSize="20sp" />
 
         <EditText
             android:id="@+id/pcontext"
+
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="130dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="40dp"
             android:hint="context" />

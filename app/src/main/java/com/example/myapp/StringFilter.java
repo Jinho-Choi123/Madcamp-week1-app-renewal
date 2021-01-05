@@ -10,11 +10,7 @@ import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
-/**
- * @description : Inputfilter class to constrain the EditText changes
- * @author hyogij@gmail.com
- *
- */
+
 public class StringFilter {
     private static final String CLASS_NAME = StringFilter.class
             .getCanonicalName();

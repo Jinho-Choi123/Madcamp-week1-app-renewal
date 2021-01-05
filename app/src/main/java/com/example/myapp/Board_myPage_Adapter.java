@@ -46,7 +46,6 @@ public class Board_myPage_Adapter extends RecyclerView.Adapter<Board_myPage_Adap
             view.findViewById(R.id.delete_board).setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    Logger.log("dddddddddddddddddelete!!!!!!!!!", "deleting");
                     db.Ref.child((String)titleView.getText()).setValue(null);
                 }
             });
@@ -54,13 +53,11 @@ public class Board_myPage_Adapter extends RecyclerView.Adapter<Board_myPage_Adap
             view.findViewById(R.id.card_content).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Logger.log("uuuuuuuuuuuuuuuuuuupdate!!!!", "updating");
                     db.Ref.child((String)titleView.getText()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             Board_content board_content = snapshot.getValue(Board_content.class);
                             showUpdateDialog(board_content);
-
                         }
 
                         @Override
@@ -88,18 +85,15 @@ public class Board_myPage_Adapter extends RecyclerView.Adapter<Board_myPage_Adap
                     @Override public void onClick(DialogInterface dialog, int which)
                     {
                         Board_content b = new Board_content();
-
                         b.Board_content(Title.getText().toString(),
                                 Context.getText().toString(), LocalDate.now().toString()
                                 , board_content.getAuthor());
                         db.Ref.child(board_content.getTitle()).setValue(null);
-
                         db.writeNewPost(b);
                     }
                 }).show();
 
     }
-
 
     public Board_myPage_Adapter(ArrayList<Board_content> board_contents, Board_DB db, Context context) {
         this.boardContents = board_contents;
@@ -110,7 +104,6 @@ public class Board_myPage_Adapter extends RecyclerView.Adapter<Board_myPage_Adap
     @Override
     public Board_myPage_Adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int ViewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.board_content_mypage_recycleview, parent, false);
-
         ViewHolder vh = new ViewHolder(v);
         return vh;
     }
@@ -120,7 +113,6 @@ public class Board_myPage_Adapter extends RecyclerView.Adapter<Board_myPage_Adap
         holder.titleView.setText(this.boardContents.get(position).getTitle());
         holder.dateView.setText(this.boardContents.get(position).getDate());
         holder.contentView.setText(this.boardContents.get(position).getContent());
-
     }
 
     @Override

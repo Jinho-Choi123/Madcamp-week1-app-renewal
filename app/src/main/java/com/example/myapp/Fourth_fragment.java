@@ -13,12 +13,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Fourth_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Fourth_fragment extends Fragment {
 
     public Fourth_fragment() {
@@ -34,9 +28,7 @@ public class Fourth_fragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -44,8 +36,6 @@ public class Fourth_fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_fourth_fragment, container, false);
-        
-
 
         BottomNavigationView board_bottom_nav = (BottomNavigationView) view.findViewById(R.id.board_nav_bar);
         board_bottom_nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -63,7 +53,6 @@ public class Fourth_fragment extends Fragment {
                 return true;
             }
         });
-
 
         return view;
     }

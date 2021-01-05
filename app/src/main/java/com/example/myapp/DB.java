@@ -29,7 +29,6 @@ public class DB {
         this.Ref = contactsRef.child(this.GoogleUserId);
     }
 
-
     //get contactlist refering to given googleuserId
     public void fetch(Context context) {
         ArrayList<Contact> db_contacts = new ArrayList<>();
@@ -50,20 +49,6 @@ public class DB {
 
             }
         });
-
-//        Gson gson = new Gson();
-//        String data = sf.getString("db_contacts", "{}");
-//        Logger.log("helllllllllllllllllllllllllllllllo", data);
-//        JsonElement jsonObj = (JsonElement) JsonParser.parseString(data);
-//        JsonArray contacts = (JsonArray) jsonObj.get("ContactList");
-//        Iterator iter = contacts.iterator();
-
-//        while(iter.hasNext()) {
-//            Contact contact = gson.fromJson((JsonElement) iter.next(), Contact.class);
-//            Logger.log("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz", contact.name);
-//            db_contacts.add(contact);
-//        }
-//        Logger.log("ffffffffffffffffffffff", String.valueOf(db_contacts.size()));
     }
 
     public void post(ArrayList<Contact> local_contactList) {

@@ -59,10 +59,8 @@ public class Board_myPage_fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         SharedPreferences sf = this.getActivity().getSharedPreferences("googleAccount", MODE_PRIVATE);
-        Logger.log("11111111111","2222222222222");
         String userId = sf.getString("userId", "");
         Board_DB board_db = new Board_DB(userId);
-
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_board_my_page_fragment, container, false);
@@ -70,7 +68,6 @@ public class Board_myPage_fragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 showLoginDialog();
                 FragmentManager fm =( getActivity()).getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
@@ -88,10 +85,6 @@ public class Board_myPage_fragment extends Fragment {
         ArrayList<Board_content> board_content = new ArrayList<Board_content>();
         RecyclerView.Adapter boardAdapter = new Board_myPage_Adapter(board_content, board_db, getContext());
         recyclerView.setAdapter(boardAdapter);
-
-
-
-        Gson gson = new Gson();
 
         board_db.Ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -113,7 +106,6 @@ public class Board_myPage_fragment extends Fragment {
         return view;
     }
 
-
     private void showLoginDialog() {
         LayoutInflater vi = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout loginLayout = (LinearLayout) vi.inflate(R.layout.dialog, null);
@@ -125,13 +117,10 @@ public class Board_myPage_fragment extends Fragment {
         final EditText Title = (EditText)loginLayout.findViewById(R.id.title);
         final EditText Context = (EditText)loginLayout.findViewById(R.id.pcontext);
         Title.setFilters(allowAlphanumericHangul);
-        Context.setFilters(allowAlphanumericHangul);
-
 
         SharedPreferences sf = this.getActivity().getSharedPreferences("googleAccount", MODE_PRIVATE);
         String userEmail = sf.getString("userEmail", "");
         String userId = sf.getString("userId", "");
-
 
         new AlertDialog.Builder(getActivity()).setTitle("Posting").setView(loginLayout).
                 setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -146,8 +135,5 @@ public class Board_myPage_fragment extends Fragment {
                         bdb.writeNewPost(b);
                     }
                 }).show();
-
     }
-
-
 }

@@ -25,7 +25,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="contacts upload"
+            android:text="Contacts \nUpload"
             android:onClick="selectFrag"
             android:textSize="8sp"
             android:id="@+id/selectFrag1"
@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:onClick="selectFrag"
             android:textSize="8sp"
-            android:text="contacts download"
+            android:text="Contacts \nDownload"
             android:id="@+id/selectFrag2"
 
             />
@@ -47,7 +47,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="selectFrag"
-            android:text="gallery"
+            android:text="Gallery"
             android:textSize="8sp"
             android:id="@+id/selectFrag3"
 
@@ -57,7 +57,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="selectFrag"
-            android:text="posting"
+            android:text="Board"
             android:textSize="8sp"
             android:id="@+id/selectFrag4"
 

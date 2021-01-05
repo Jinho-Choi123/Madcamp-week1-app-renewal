@@ -24,7 +24,6 @@ public class First_fragment extends Fragment {
         // Required empty public constructor
     }
 
-
     public static First_fragment newInstance() {
         First_fragment fragment = new First_fragment();
         Bundle args = new Bundle();
@@ -73,7 +72,6 @@ public class First_fragment extends Fragment {
                 return true;
             }
         });
-
         return view;
     }
 

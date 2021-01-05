@@ -34,11 +34,6 @@ import java.util.Iterator;
 
 import static android.content.Context.MODE_PRIVATE;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Second_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Second_fragment extends Fragment {
 
     public Second_fragment() {
@@ -143,7 +138,6 @@ public class Second_fragment extends Fragment {
                 Contact iter;
                 while(iterator.hasNext()) {
                     iter = iterator.next();
-                    Logger.log("check local contactsdddddddddddddd", iter.name);
                     if((iter.getPhoneNumber().equals(phoneNumber) ) && (iter.getName().equals(name))) {
                         Toast toast = Toast.makeText(getContext(), "Already Exists", Toast.LENGTH_SHORT);
                         toast.show();
@@ -157,7 +151,6 @@ public class Second_fragment extends Fragment {
                         return;
                     }
                 }
-
                  Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
                  intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
 
@@ -167,10 +160,6 @@ public class Second_fragment extends Fragment {
             }
         });
 
-
-
         return view;
-
-
     }
 }

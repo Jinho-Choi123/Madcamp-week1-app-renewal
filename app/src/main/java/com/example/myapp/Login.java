@@ -45,7 +45,6 @@ public class Login extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_EXTERNAL_STORAGE},
                         0);
-
             }
         } else {
             // Permission has already been granted
@@ -92,7 +91,6 @@ public class Login extends AppCompatActivity {
 
         signin.setColorScheme(SignInButton.COLOR_LIGHT);
 
-
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -120,7 +118,6 @@ public class Login extends AppCompatActivity {
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-
 
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
