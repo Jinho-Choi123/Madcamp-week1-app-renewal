@@ -1,14 +1,17 @@
 package com.example.myapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,11 +20,13 @@ public class Contact {
     String id;
     String phoneNumber;
     String name;
+    Boolean setGray;
 
-    public void Contact(String id, String phoneNumber, String name) {
+    public void Contact(String id, String phoneNumber, String name, Boolean setGray) {
         this.id = id;
         this.phoneNumber = phoneNumber;
         this.name = name;
+        this.setGray = setGray;
     }
 
     public String getId() {
@@ -42,11 +47,13 @@ public class Contact {
     public void setName(String name) {
         this.name = name;
     }
+    public Boolean getSetGray() { return this.setGray;}
+    public void setSetGray(Boolean setGray) {this.setGray = setGray;}
 
     public static class ContactAdapter extends BaseAdapter {
         private TextView phoneNumber;
         private TextView name;
-        private TextView id;
+        private LinearLayout contact_data_set;
         private ArrayList<Contact> contact_list = new ArrayList<Contact>();
 
         public ContactAdapter() {
@@ -58,6 +65,7 @@ public class Contact {
             return contact_list.size();
         }
 
+        @SuppressLint("ResourceAsColor")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             final int pos = position;
@@ -73,10 +81,15 @@ public class Contact {
             phoneNumber = (TextView) convertView.findViewById(R.id.contact_phonenumber);
             name = (TextView) convertView.findViewById(R.id.contact_name);
             //id = (TextView) convertView.findViewById(R.id.contact_id);
+            contact_data_set = (LinearLayout) convertView.findViewById(R.id.contact_data_set);
+
             Contact item = contact_list.get(position);
 
             phoneNumber.setText(item.getPhoneNumber());
             name.setText(item.getName());
+            if(item.setGray == true) {
+                contact_data_set.setBackgroundColor(Color.parseColor("#D5DBDB"));
+            }
             //id.setText(Long.toString(item.getId()));
             return convertView;
         }
@@ -91,13 +104,13 @@ public class Contact {
             return contact_list.get(position);
         }
 
-        public void addItem(String phonenumber, String name, String id) {
+        public void addItem(String phonenumber, String name, String id, Boolean setGray) {
             Contact item = new Contact();
 
             item.setId(id);
             item.setName(name);
             item.setPhoneNumber(phonenumber);
-
+            item.setSetGray(setGray);
             contact_list.add(item);
         }
         public void deleteAll() {
