@@ -18,7 +18,7 @@
         android:layout_marginBottom="40dp"
         android:fontFamily="@font/login_fontstyle"
 
-        android:textSize="40sp" />
+        android:textSize="50sp" />
 
     <ImageView
         android:layout_gravity="center"

@@ -1,7 +1,5 @@
 package com.example.myapp;
 
-import java.util.regex.Pattern;
-
 import android.content.Context;
 import android.os.Handler;
 import android.text.InputFilter;
@@ -9,6 +7,8 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.widget.Toast;
+
+import java.util.regex.Pattern;
 
 /**
  * @description : Inputfilter class to constrain the EditText changes
@@ -95,7 +95,7 @@ public class StringFilter {
     // Shows toast with specify delay that is shorter than Toast.LENGTH_SHORT
     private void showToast(String msg) {
         final Toast toast = Toast.makeText(context.getApplicationContext(),
-                msg, Toast.LENGTH_SHORT);
+                msg, Toast.LENGTH_LONG);
         toast.show();
 
         Handler handler = new Handler();

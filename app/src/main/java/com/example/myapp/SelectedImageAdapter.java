@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-
 public class SelectedImageAdapter extends RecyclerView.Adapter<com.example.myapp.SelectedImageAdapter.ViewHolder>{
 
     Context context;

@@ -41,8 +41,10 @@
                     android:layout_weight="10"
                     android:layout_width="0dp"
                     android:layout_marginLeft="15dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/byauthor"/>
+                    android:id="@+id/card_title"/>
             </LinearLayout>
 
             <LinearLayout
@@ -54,11 +56,10 @@
                     android:layout_width="0dp"
                     android:layout_weight="10"
                     android:layout_height="wrap_content"
-                    android:id="@+id/card_title"
-                    android:textSize="20sp"
+                    android:id="@+id/byauthor"
+                    android:textSize="12sp"
                     android:paddingLeft="4dp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="10dp"
                     />
                 <TextView
                     android:layout_width="0dp"
@@ -89,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/card_content"
                 android:padding="8dp"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="10dp"
                 />
 
 
