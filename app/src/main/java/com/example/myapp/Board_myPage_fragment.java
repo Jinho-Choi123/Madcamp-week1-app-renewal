@@ -5,11 +5,14 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -28,6 +31,7 @@ import com.google.gson.Gson;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -55,6 +59,7 @@ public class Board_myPage_fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         SharedPreferences sf = this.getActivity().getSharedPreferences("googleAccount", MODE_PRIVATE);
+        Logger.log("11111111111","2222222222222");
         String userId = sf.getString("userId", "");
         Board_DB board_db = new Board_DB(userId);
 
@@ -112,11 +117,21 @@ public class Board_myPage_fragment extends Fragment {
     private void showLoginDialog() {
         LayoutInflater vi = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout loginLayout = (LinearLayout) vi.inflate(R.layout.dialog, null);
+
+        StringFilter stringFilter = new StringFilter(getActivity());
+        InputFilter[] allowAlphanumericHangul = new InputFilter[1];
+        allowAlphanumericHangul[0] = stringFilter.allowAlphanumericHangul;
+
         final EditText Title = (EditText)loginLayout.findViewById(R.id.title);
         final EditText Context = (EditText)loginLayout.findViewById(R.id.pcontext);
+        Title.setFilters(allowAlphanumericHangul);
+        Context.setFilters(allowAlphanumericHangul);
+
+
         SharedPreferences sf = this.getActivity().getSharedPreferences("googleAccount", MODE_PRIVATE);
         String userEmail = sf.getString("userEmail", "");
         String userId = sf.getString("userId", "");
+
 
         new AlertDialog.Builder(getActivity()).setTitle("Posting").setView(loginLayout).
                 setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -124,13 +139,10 @@ public class Board_myPage_fragment extends Fragment {
                     @Override public void onClick(DialogInterface dialog, int which)
                     {
                         Board_DB bdb = new Board_DB(userId);
-
                         Board_content b = new Board_content();
-
                         b.Board_content(Title.getText().toString(),
                                 Context.getText().toString(), LocalDate.now().toString()
                                 , userEmail);
-
                         bdb.writeNewPost(b);
                     }
                 }).show();

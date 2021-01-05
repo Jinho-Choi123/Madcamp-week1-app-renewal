@@ -207,6 +207,7 @@ public class Third_fragment extends Fragment {
                         ClipData.Item item = mClipData.getItemAt(i);
                         Uri uri = item.getUri();
                         selectedImageURI.add(uri);
+
                         getImageFilePath(uri);
                     }
                 } else if (data.getData() != null) {

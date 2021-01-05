@@ -46,7 +46,7 @@ public class Board_Adapter extends RecyclerView.Adapter<Board_Adapter.ViewHolder
         holder.titleView.setText(this.boardContents.get(position).getTitle());
         holder.dateView.setText(this.boardContents.get(position).getDate());
         holder.contentView.setText(this.boardContents.get(position).getContent());
-        holder.authorView.setText("by " + this.boardContents.get(position).getAuthor());
+        holder.authorView.setText(this.boardContents.get(position).getAuthor());
     }
 
     @Override

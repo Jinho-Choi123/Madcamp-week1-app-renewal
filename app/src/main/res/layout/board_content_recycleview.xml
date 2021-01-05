@@ -17,12 +17,14 @@
         card:cardUseCompatPadding="true"
         card:cardElevation="10dp"
 
+
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginBottom="10dp"
+
             >
 
             <LinearLayout
@@ -30,24 +32,56 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginBottom="10dp"
+
+                style="@style/Divider"
+                >
+                <TextView
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:layout_weight="10"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/byauthor"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
                 >
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_weight="9"
+                    android:layout_weight="10"
                     android:layout_height="wrap_content"
                     android:id="@+id/card_title"
                     android:textSize="20sp"
                     android:paddingLeft="4dp"
                     android:textStyle="bold"
+                    android:layout_marginLeft="15dp"
                     />
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:gravity="left"
+                    android:textSize="12sp"
                     android:layout_height="wrap_content"
                     android:id="@+id/card_date"/>
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerInParent="true"
+                    android:background="@color/codeGray"/>
+
+
+            </LinearLayout>
+
 
             <TextView
                 android:textSize="15sp"
@@ -55,12 +89,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/card_content"
                 android:padding="8dp"
+                android:layout_marginLeft="15dp"
                 />
-            <TextView
-                android:gravity="right"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/byauthor"/>
+
 
 
         </LinearLayout>

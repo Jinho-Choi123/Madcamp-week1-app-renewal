@@ -32,6 +32,7 @@ public class Board_myPage_Adapter extends RecyclerView.Adapter<Board_myPage_Adap
         public TextView titleView;
         public TextView dateView;
         public TextView contentView;
+
         public Button deletebtn;
         public Button updatebtn;
 
@@ -41,6 +42,7 @@ public class Board_myPage_Adapter extends RecyclerView.Adapter<Board_myPage_Adap
             titleView = (TextView) view.findViewById(R.id.card_title);
             dateView = (TextView) view.findViewById(R.id.card_date);
             contentView = (TextView) view.findViewById(R.id.card_content);
+
             view.findViewById(R.id.delete_board).setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
@@ -49,7 +51,7 @@ public class Board_myPage_Adapter extends RecyclerView.Adapter<Board_myPage_Adap
                 }
             });
 
-            view.findViewById(R.id.update_board).setOnClickListener(new View.OnClickListener() {
+            view.findViewById(R.id.card_content).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Logger.log("uuuuuuuuuuuuuuuuuuupdate!!!!", "updating");
@@ -118,6 +120,7 @@ public class Board_myPage_Adapter extends RecyclerView.Adapter<Board_myPage_Adap
         holder.titleView.setText(this.boardContents.get(position).getTitle());
         holder.dateView.setText(this.boardContents.get(position).getDate());
         holder.contentView.setText(this.boardContents.get(position).getContent());
+
     }
 
     @Override
